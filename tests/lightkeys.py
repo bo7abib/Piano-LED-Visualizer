@@ -34,7 +34,7 @@ class LedStrip:
         self.strip.begin()
 
 ledstrip = LedStrip()
-inport =  mido.open_input('mio:mio MIDI 1 20:0')
+inport =  mido.open_input('Your Piano Port Here using "aconnect -l" command')
 green = 255
 red = 255
 blue = 255
@@ -53,8 +53,8 @@ while True:
 		else:
 			note_offset = 0
 			
-		if(int(velocity) == 0 and int(note) > 0):
+		if "note_off" in str(msg):
 			ledstrip.strip.setPixelColor(((note - 20)*2 - note_offset), Color(0, 0, 0)) 
-		elif(int(velocity) > 0 and int(note) > 0):
+		elif "note_on" in str(msg):
 			ledstrip.strip.setPixelColor(((note - 20)*2 - note_offset), Color(green,red,blue))
 	ledstrip.strip.show()
